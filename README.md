@@ -20,136 +20,114 @@ Download the latest binary for your platform from [Releases](https://github.com/
 
 ```bash
 chmod +x netlist-mcp-darwin-arm64
+# Move to a permanent location
+mv netlist-mcp-darwin-arm64 ~/.local/bin/netlist-mcp
 ```
 
 ### 3. Configure your MCP client
 
 ---
 
+## Project-Local Configuration
+
+Add to your project's MCP config file to enable **only for that repository**.
+
 #### Claude Code
 
-Use the CLI command:
-
-```bash
-claude mcp add netlist /path/to/netlist-mcp-darwin-arm64
-```
-
-Or edit `~/.claude.json`:
+Create `.mcp.json` in your project root:
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp-darwin-arm64"
+      "command": "/path/to/netlist-mcp"
     }
   }
 }
 ```
 
-[Claude Code MCP Documentation](https://code.claude.com/docs/en/mcp)
-
----
-
-#### Claude Desktop
-
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
-
-```json
-{
-  "mcpServers": {
-    "netlist": {
-      "command": "/path/to/netlist-mcp-darwin-arm64"
-    }
-  }
-}
-```
+[Claude Code MCP Docs](https://code.claude.com/docs/en/mcp)
 
 ---
 
 #### VS Code (GitHub Copilot)
 
-1. Open Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
-2. Search "MCP: Add Server"
-3. Select "Add Local Server"
-4. Enter server name: `netlist`
-5. Enter command: `/path/to/netlist-mcp-darwin-arm64`
-
-Or edit `.vscode/mcp.json` in your workspace:
+Create `.vscode/mcp.json` in your project:
 
 ```json
 {
   "servers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp-darwin-arm64"
+      "command": "/path/to/netlist-mcp"
     }
   }
 }
 ```
 
-[VS Code MCP Documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
+[VS Code MCP Docs](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 
 ---
 
 #### Cursor
 
-Edit `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (project):
+Create `.cursor/mcp.json` in your project root:
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp-darwin-arm64"
+      "command": "/path/to/netlist-mcp"
     }
   }
 }
 ```
 
-Or use Command Palette: `Cmd+Shift+P` → "MCP: Add Server"
-
-[Cursor MCP Documentation](https://cursor.com/docs/context/mcp)
+[Cursor MCP Docs](https://cursor.com/docs/context/mcp)
 
 ---
 
 #### Codex CLI (OpenAI)
 
-Edit `~/.codex/config.toml`:
+Create `.codex/config.toml` in your project root:
 
 ```toml
 [mcp_servers.netlist]
-command = "/path/to/netlist-mcp-darwin-arm64"
+command = "/path/to/netlist-mcp"
 ```
 
-Or use the CLI:
-
-```bash
-codex mcp add netlist /path/to/netlist-mcp-darwin-arm64
-```
-
-[Codex CLI MCP Documentation](https://developers.openai.com/codex/mcp/)
+[Codex CLI MCP Docs](https://developers.openai.com/codex/mcp/)
 
 ---
 
 #### Gemini CLI
 
-Edit `~/.gemini/settings.json`:
+Create `.gemini/settings.json` in your project root:
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp-darwin-arm64"
+      "command": "/path/to/netlist-mcp"
     }
   }
 }
 ```
 
-Or use the CLI:
+[Gemini CLI MCP Docs](https://geminicli.com/docs/tools/mcp-server/)
 
-```bash
-gemini mcp add --name netlist --command /path/to/netlist-mcp-darwin-arm64
-```
+---
 
-[Gemini CLI MCP Documentation](https://geminicli.com/docs/tools/mcp-server/)
+## Global Installation (CLI)
+
+Install globally to enable **across all projects**.
+
+| App | Command |
+|-----|---------|
+| Claude Code | `claude mcp add netlist /path/to/netlist-mcp --scope user` |
+| Codex CLI | `codex mcp add netlist /path/to/netlist-mcp` |
+| Gemini CLI | `gemini mcp add --name netlist --command /path/to/netlist-mcp --scope user` |
+
+For VS Code and Cursor, use their Command Palette (`Cmd+Shift+P`) → "MCP: Add Server" to add globally.
 
 ---
 
