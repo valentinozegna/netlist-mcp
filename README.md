@@ -10,11 +10,11 @@ curl -fsSL https://raw.githubusercontent.com/valentinozegna/netlist-mcp/main/ins
 
 ## Update
 
+The binary will auto-update on startup. To update manually:
+
 ```bash
 netlist-mcp --update
 ```
-
-Or the binary will auto-update on startup (disable with `NETLIST_MCP_NO_UPDATE=1`).
 
 ## Configure your MCP client
 
