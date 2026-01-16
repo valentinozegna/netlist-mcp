@@ -18,12 +18,12 @@ netlist-mcp --update
 
 ## Configure your MCP client
 
-After installation, configure your MCP client to use the server.
+After installation, configure your MCP client. Replace `/Users/YOUR_USERNAME` with your actual home directory path.
 
 ### Claude Code
 
 ```bash
-claude mcp add netlist ~/.netlist-mcp/bin/netlist-mcp
+claude mcp add netlist /Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp
 ```
 
 ### Claude Desktop
@@ -34,13 +34,13 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 {
   "mcpServers": {
     "netlist": {
-      "command": "~/.netlist-mcp/bin/netlist-mcp"
+      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
 ```
 
-### VS Code (Copilot/Continue)
+### VS Code (GitHub Copilot)
 
 Add to `.vscode/mcp.json` in your project:
 
@@ -48,7 +48,8 @@ Add to `.vscode/mcp.json` in your project:
 {
   "servers": {
     "netlist": {
-      "command": "~/.netlist-mcp/bin/netlist-mcp"
+      "type": "stdio",
+      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
@@ -62,7 +63,7 @@ Add to `~/.cursor/mcp.json`:
 {
   "mcpServers": {
     "netlist": {
-      "command": "~/.netlist-mcp/bin/netlist-mcp"
+      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
@@ -70,10 +71,10 @@ Add to `~/.cursor/mcp.json`:
 
 ## Supported Platforms
 
-| Platform | Binary | Status |
-|----------|--------|--------|
-| macOS Apple Silicon | `netlist-mcp-darwin-arm64` | Signed & Notarized |
-| macOS Intel | `netlist-mcp-darwin-x64` | Signed & Notarized |
-| Linux ARM64 | `netlist-mcp-linux-arm64` | |
-| Linux x64 | `netlist-mcp-linux-x64` | |
-| Windows x64 | `netlist-mcp-windows-x64.exe` | |
+| Platform | Binary |
+|----------|--------|
+| macOS Apple Silicon | `netlist-mcp-darwin-arm64` |
+| macOS Intel | `netlist-mcp-darwin-x64` |
+| Linux ARM64 | `netlist-mcp-linux-arm64` |
+| Linux x64 | `netlist-mcp-linux-x64` |
+| Windows x64 | `netlist-mcp-windows-x64.exe` |
