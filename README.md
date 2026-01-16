@@ -153,27 +153,6 @@ For VS Code and Cursor, use their Command Palette (`Cmd+Shift+P`) → "MCP: Add 
 
 ---
 
-## Tools
-
-| Tool | Description |
-|------|-------------|
-| `list_designs` | List design projects in a directory |
-| `list_components` | List components by type (U, C, R, L, etc.) |
-| `list_nets` | List all net names |
-| `search_nets` | Regex search across net names |
-| `search_components_by_refdes` | Regex search by refdes |
-| `search_components_by_mpn` | Regex search by MPN |
-| `search_components_by_description` | Regex search by description |
-| `query_component` | Full component details and pin connections |
-| `query_xnet_by_net_name` | Extended net connectivity from a net name |
-| `query_xnet_by_pin_name` | Extended net connectivity from a pin |
-
-## Usage Tips
-
-- Use `list_designs` first to discover available projects
-- `query_xnet_*` stops at power/ground nets; use `skip_types` (e.g., `['C', 'L']`) to skip series passives
-- Cadence designs require exported `.dat` files (Tools → Create Netlist → PCB Editor format)
-
 ## Author
 
 Valentino Zegna <valentino.zegna@gmail.com>
