@@ -1,12 +1,18 @@
-# Netlist MCP Server
+# ⚡ Netlist MCP Server
 
-MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence (CIS, HDL) and Altium Designer formats.
+**Give your AI agent the power to understand circuit schematics.**
 
-## Installation
+Connect Claude, Copilot, Cursor, Codex, or Gemini to your EDA netlists. Query components, trace signal paths, and analyze circuit connectivity — all through natural conversation.
+
+Supports **Cadence** (CIS, HDL) and **Altium Designer** formats.
+
+---
+
+## 🚀 Installation
 
 ### 1. Download
 
-Download the latest binary for your platform from [Releases](https://github.com/valentinozegna/netlist-mcp/releases).
+Grab the latest binary for your platform from [**Releases**](https://github.com/valentinozegna/netlist-mcp/releases).
 
 | Platform | Binary |
 |----------|--------|
@@ -20,43 +26,31 @@ Download the latest binary for your platform from [Releases](https://github.com/
 
 **macOS:**
 ```bash
-# Remove quarantine attribute (required for unsigned binaries)
 xattr -d com.apple.quarantine netlist-mcp-darwin-arm64
-
-# Make executable
 chmod +x netlist-mcp-darwin-arm64
-
-# Move to a permanent location
 mv netlist-mcp-darwin-arm64 ~/.local/bin/netlist-mcp
 ```
 
 **Linux:**
 ```bash
-# Make executable
 chmod +x netlist-mcp-linux-x64
-
-# Move to a permanent location
 mv netlist-mcp-linux-x64 ~/.local/bin/netlist-mcp
 ```
 
 **Windows:**
-1. Right-click `netlist-mcp-windows-x64.exe` → **Properties**
-2. Check **Unblock** at the bottom → Click **Apply**
-3. Move to a permanent location (e.g., `C:\Users\<you>\bin\netlist-mcp.exe`)
-
-*Or if SmartScreen blocks it: Click "More info" → "Run anyway"*
-
-### 3. Configure your MCP client
+1. Right-click the `.exe` → **Properties** → Check **Unblock** → **Apply**
+2. Move to a permanent location (e.g., `C:\Users\<you>\bin\netlist-mcp.exe`)
 
 ---
 
-## Project-Local Configuration
+## 🔧 Configuration
 
-Add to your project's MCP config file to enable **only for that repository**.
+### Project-Local Setup
 
-#### Claude Code
+Enable the MCP server **only for a specific project** by adding a config file to your repository.
 
-Create `.mcp.json` in your project root:
+<details>
+<summary><b>Claude Code</b> — <code>.mcp.json</code></summary>
 
 ```json
 {
@@ -67,14 +61,11 @@ Create `.mcp.json` in your project root:
   }
 }
 ```
+[Documentation →](https://code.claude.com/docs/en/mcp)
+</details>
 
-[Claude Code MCP Docs](https://code.claude.com/docs/en/mcp)
-
----
-
-#### VS Code (GitHub Copilot)
-
-Create `.vscode/mcp.json` in your project:
+<details>
+<summary><b>VS Code (Copilot)</b> — <code>.vscode/mcp.json</code></summary>
 
 ```json
 {
@@ -85,14 +76,11 @@ Create `.vscode/mcp.json` in your project:
   }
 }
 ```
+[Documentation →](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
+</details>
 
-[VS Code MCP Docs](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
-
----
-
-#### Cursor
-
-Create `.cursor/mcp.json` in your project root:
+<details>
+<summary><b>Cursor</b> — <code>.cursor/mcp.json</code></summary>
 
 ```json
 {
@@ -103,27 +91,21 @@ Create `.cursor/mcp.json` in your project root:
   }
 }
 ```
+[Documentation →](https://cursor.com/docs/context/mcp)
+</details>
 
-[Cursor MCP Docs](https://cursor.com/docs/context/mcp)
-
----
-
-#### Codex CLI (OpenAI)
-
-Create `.codex/config.toml` in your project root:
+<details>
+<summary><b>Codex CLI</b> — <code>.codex/config.toml</code></summary>
 
 ```toml
 [mcp_servers.netlist]
 command = "/path/to/netlist-mcp"
 ```
+[Documentation →](https://developers.openai.com/codex/mcp/)
+</details>
 
-[Codex CLI MCP Docs](https://developers.openai.com/codex/mcp/)
-
----
-
-#### Gemini CLI
-
-Create `.gemini/settings.json` in your project root:
+<details>
+<summary><b>Gemini CLI</b> — <code>.gemini/settings.json</code></summary>
 
 ```json
 {
@@ -134,14 +116,14 @@ Create `.gemini/settings.json` in your project root:
   }
 }
 ```
-
-[Gemini CLI MCP Docs](https://geminicli.com/docs/tools/mcp-server/)
+[Documentation →](https://geminicli.com/docs/tools/mcp-server/)
+</details>
 
 ---
 
-## Global Installation (CLI)
+### Global Installation
 
-Install globally to enable **across all projects**.
+Enable across **all projects** using CLI commands:
 
 | App | Command |
 |-----|---------|
@@ -149,14 +131,14 @@ Install globally to enable **across all projects**.
 | Codex CLI | `codex mcp add netlist /path/to/netlist-mcp` |
 | Gemini CLI | `gemini mcp add --name netlist --command /path/to/netlist-mcp --scope user` |
 
-For VS Code and Cursor, use their Command Palette (`Cmd+Shift+P`) → "MCP: Add Server" to add globally.
+For **VS Code** and **Cursor**, use Command Palette (`Cmd+Shift+P`) → "MCP: Add Server"
 
 ---
 
-## Author
-
-Valentino Zegna <valentino.zegna@gmail.com>
-
-## License
+## 📄 License
 
 MIT
+
+---
+
+Built by [Valentino Zegna](mailto:valentino.zegna@gmail.com)
