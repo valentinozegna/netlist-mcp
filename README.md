@@ -16,13 +16,35 @@ Download the latest binary for your platform from [Releases](https://github.com/
 | Linux x64 | `netlist-mcp-linux-x64` |
 | Windows x64 | `netlist-mcp-windows-x64.exe` |
 
-### 2. Make executable (macOS/Linux only)
+### 2. Prepare the binary
 
+**macOS:**
 ```bash
+# Remove quarantine attribute (required for unsigned binaries)
+xattr -d com.apple.quarantine netlist-mcp-darwin-arm64
+
+# Make executable
 chmod +x netlist-mcp-darwin-arm64
+
 # Move to a permanent location
 mv netlist-mcp-darwin-arm64 ~/.local/bin/netlist-mcp
 ```
+
+**Linux:**
+```bash
+# Make executable
+chmod +x netlist-mcp-linux-x64
+
+# Move to a permanent location
+mv netlist-mcp-linux-x64 ~/.local/bin/netlist-mcp
+```
+
+**Windows:**
+1. Right-click `netlist-mcp-windows-x64.exe` → **Properties**
+2. Check **Unblock** at the bottom → Click **Apply**
+3. Move to a permanent location (e.g., `C:\Users\<you>\bin\netlist-mcp.exe`)
+
+*Or if SmartScreen blocks it: Click "More info" → "Run anyway"*
 
 ### 3. Configure your MCP client
 
