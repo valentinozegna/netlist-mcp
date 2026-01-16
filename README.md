@@ -1,144 +1,114 @@
-# ⚡ Netlist MCP Server
+# Netlist MCP Server
 
-**Give your AI agent the power to understand circuit schematics.**
+MCP server for querying EDA netlists and tracing circuit connectivity. Supports Cadence (CIS, HDL) and Altium Designer formats.
 
-Connect Claude, Copilot, Cursor, Codex, or Gemini to your EDA netlists. Query components, trace signal paths, and analyze circuit connectivity — all through natural conversation.
+**macOS binaries are signed and notarized by Apple.**
 
-Supports **Cadence** (CIS, HDL) and **Altium Designer** formats.
+## Quick Install
 
----
-
-## 🚀 Installation
-
-### 1. Download
-
-Grab the latest binary for your platform from [**Releases**](https://github.com/valentinozegna/netlist-mcp/releases).
-
-| Platform | Binary |
-|----------|--------|
-| macOS Apple Silicon | `netlist-mcp-darwin-arm64` |
-| macOS Intel | `netlist-mcp-darwin-x64` |
-| Linux ARM64 | `netlist-mcp-linux-arm64` |
-| Linux x64 | `netlist-mcp-linux-x64` |
-| Windows x64 | `netlist-mcp-windows-x64.exe` |
-
-### 2. Prepare the binary
-
-**macOS:**
 ```bash
-xattr -d com.apple.quarantine netlist-mcp-darwin-arm64
-chmod +x netlist-mcp-darwin-arm64
-mv netlist-mcp-darwin-arm64 ~/.local/bin/netlist-mcp
+curl -fsSL https://raw.githubusercontent.com/valentinozegna/netlist-mcp/main/install.sh | bash
 ```
 
-**Linux:**
+This will:
+- Download the correct binary for your platform
+- Verify the checksum
+- Install to `~/.netlist-mcp/bin/`
+- Add to your PATH
+
+## Update
+
 ```bash
-chmod +x netlist-mcp-linux-x64
-mv netlist-mcp-linux-x64 ~/.local/bin/netlist-mcp
+netlist-mcp --update
 ```
 
-**Windows:**
-1. Right-click the `.exe` → **Properties** → Check **Unblock** → **Apply**
-2. Move to a permanent location (e.g., `C:\Users\<you>\bin\netlist-mcp.exe`)
+Or the binary will auto-update on startup (disable with `NETLIST_MCP_NO_UPDATE=1`).
 
----
+## Configure your MCP client
 
-## 🔧 Configuration
+After installation, configure your MCP client to use the server.
 
-### Project-Local Setup
+### Claude Code
 
-Enable the MCP server **only for a specific project** by adding a config file to your repository.
+```bash
+claude mcp add netlist ~/.netlist-mcp/bin/netlist-mcp
+```
 
-<details>
-<summary><b>Claude Code</b> — <code>.mcp.json</code></summary>
+### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp"
+      "command": "~/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
 ```
-[Documentation →](https://code.claude.com/docs/en/mcp)
-</details>
 
-<details>
-<summary><b>VS Code (Copilot)</b> — <code>.vscode/mcp.json</code></summary>
+### VS Code (Copilot/Continue)
+
+Add to `.vscode/mcp.json` in your project:
 
 ```json
 {
   "servers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp"
+      "command": "~/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
 ```
-[Documentation →](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
-</details>
 
-<details>
-<summary><b>Cursor</b> — <code>.cursor/mcp.json</code></summary>
+### Cursor
+
+Add to `~/.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/path/to/netlist-mcp"
+      "command": "~/.netlist-mcp/bin/netlist-mcp"
     }
   }
 }
 ```
-[Documentation →](https://cursor.com/docs/context/mcp)
-</details>
 
-<details>
-<summary><b>Codex CLI</b> — <code>.codex/config.toml</code></summary>
+## Supported Platforms
 
-```toml
-[mcp_servers.netlist]
-command = "/path/to/netlist-mcp"
-```
-[Documentation →](https://developers.openai.com/codex/mcp/)
-</details>
+| Platform | Binary | Status |
+|----------|--------|--------|
+| macOS Apple Silicon | `netlist-mcp-darwin-arm64` | Signed & Notarized |
+| macOS Intel | `netlist-mcp-darwin-x64` | Signed & Notarized |
+| Linux ARM64 | `netlist-mcp-linux-arm64` | |
+| Linux x64 | `netlist-mcp-linux-x64` | |
+| Windows x64 | `netlist-mcp-windows-x64.exe` | |
 
-<details>
-<summary><b>Gemini CLI</b> — <code>.gemini/settings.json</code></summary>
+## MCP Tools
 
-```json
-{
-  "mcpServers": {
-    "netlist": {
-      "command": "/path/to/netlist-mcp"
-    }
-  }
-}
-```
-[Documentation →](https://geminicli.com/docs/tools/mcp-server/)
-</details>
+All tools accept absolute design paths. DNS (Do Not Stuff) components are excluded by default unless `include_dns=true` is provided.
 
----
+| Tool | Description |
+|------|-------------|
+| `list_designs` | List design projects in a directory |
+| `list_components` | List components by type prefix (U, C, R, L, etc.) |
+| `list_nets` | List all net names |
+| `search_nets` | Regex search across net names |
+| `search_components_by_refdes` | Regex search by refdes |
+| `search_components_by_mpn` | Regex search by MPN |
+| `search_components_by_description` | Regex search by description |
+| `query_component` | Full component details and pin connections |
+| `query_xnet_by_net_name` | Extended net connectivity from a net name |
+| `query_xnet_by_pin_name` | Extended net connectivity from a pin (REFDES.PIN) |
 
-### Global Installation
+## Usage Tips
 
-Enable across **all projects** using CLI commands:
+- Use `list_designs` first to discover available projects in a directory
+- `query_xnet_*` stops traversal at power/ground nets; use `skip_types` (e.g., `['C', 'L']`) to skip series passives
+- Cadence designs require exported `.dat` files (Tools > Create Netlist > PCB Editor format)
 
-| App | Command |
-|-----|---------|
-| Claude Code | `claude mcp add netlist /path/to/netlist-mcp --scope user` |
-| Codex CLI | `codex mcp add netlist /path/to/netlist-mcp` |
-| Gemini CLI | `gemini mcp add --name netlist --command /path/to/netlist-mcp --scope user` |
-
-For **VS Code** and **Cursor**, use Command Palette (`Cmd+Shift+P`) → "MCP: Add Server"
-
----
-
-## 📄 License
+## License
 
 MIT
-
----
-
-Built by [Valentino Zegna](mailto:valentino.zegna@gmail.com)
