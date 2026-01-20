@@ -4,8 +4,16 @@ MCP server for querying EDA netlists and tracing circuit connectivity. Supports 
 
 ## Quick Install
 
+**macOS / Linux:**
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/valentinozegna/netlist-mcp/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+
+```powershell
+irm https://raw.githubusercontent.com/valentinozegna/netlist-mcp/main/install.ps1 | iex
 ```
 
 ## Update
@@ -18,23 +26,27 @@ netlist-mcp --update
 
 ## Configure your MCP client
 
-After installation, configure your MCP client. Replace `/Users/YOUR_USERNAME` with your actual home directory path.
+After installation, configure your MCP client. The binary installs to:
+- **macOS/Linux:** `~/.netlist-mcp/bin/netlist-mcp`
+- **Windows:** `%LOCALAPPDATA%\netlist-mcp\bin\netlist-mcp.exe`
 
 ### Claude Code
 
 ```bash
-claude mcp add netlist /Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp
+claude mcp add netlist netlist-mcp
 ```
 
 ### Claude Desktop
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
+Add to your Claude Desktop config:
+- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
+      "command": "netlist-mcp"
     }
   }
 }
@@ -49,7 +61,7 @@ Add to `.vscode/mcp.json` in your project:
   "servers": {
     "netlist": {
       "type": "stdio",
-      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
+      "command": "netlist-mcp"
     }
   }
 }
@@ -57,13 +69,13 @@ Add to `.vscode/mcp.json` in your project:
 
 ### Cursor
 
-Add to `~/.cursor/mcp.json`:
+Add to `.cursor/mcp.json` in your project:
 
 ```json
 {
   "mcpServers": {
     "netlist": {
-      "command": "/Users/YOUR_USERNAME/.netlist-mcp/bin/netlist-mcp"
+      "command": "netlist-mcp"
     }
   }
 }
@@ -78,3 +90,5 @@ Add to `~/.cursor/mcp.json`:
 | Linux ARM64 | `netlist-mcp-linux-arm64` |
 | Linux x64 | `netlist-mcp-linux-x64` |
 | Windows x64 | `netlist-mcp-windows-x64.exe` |
+
+> **Note:** Windows ARM64 is not currently supported.
