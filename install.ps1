@@ -27,12 +27,12 @@ function Get-Platform {
 
     switch ($arch) {
         "AMD64" { return "netlist-mcp-windows-x64.exe" }
+        "ARM64" {
+            Write-Warn "Native ARM64 binary not available, using x64-baseline (runs via emulation)"
+            return "netlist-mcp-windows-x64-baseline.exe"
+        }
         "x86" {
             Write-Err "32-bit Windows is not supported"
-            exit 1
-        }
-        "ARM64" {
-            Write-Err "Windows ARM64 is not currently supported"
             exit 1
         }
         default {

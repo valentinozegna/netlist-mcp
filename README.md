@@ -90,5 +90,4 @@ Add to `.cursor/mcp.json` in your project:
 | Linux ARM64 | `netlist-mcp-linux-arm64` |
 | Linux x64 | `netlist-mcp-linux-x64` |
 | Windows x64 | `netlist-mcp-windows-x64.exe` |
-
-> **Note:** Windows ARM64 is not currently supported.
+| Windows ARM64 | `netlist-mcp-windows-x64-baseline.exe` (emulated) |
